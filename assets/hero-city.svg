@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 480" role="img" aria-labelledby="heroCityTitle">
+  <title id="heroCityTitle">Пеший курьер идёт по улице Москвы мимо силуэтов зданий</title>
+  <style>
+    .scenery { animation: heroScroll 14s linear infinite; }
+    @keyframes heroScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-640px); }
+    }
+    .ground-line {
+      stroke-dasharray: 14 12;
+      animation: heroDash 0.57s linear infinite;
+    }
+    @keyframes heroDash {
+      to { stroke-dashoffset: -26; }
+    }
+    .courier {
+      animation: heroBob 0.6s ease-in-out infinite;
+      transform-box: fill-box;
+      transform-origin: 50% 100%;
+    }
+    @keyframes heroBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%      { transform: translateY(-3px) rotate(-1.5deg); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .scenery, .ground-line, .courier { animation: none !important; }
+    }
+  </style>
+
+  <rect width="640" height="480" fill="#1A1A1A"/>
+
+  <g class="scenery">
+    <g opacity="0.55">
+      <rect x="0" y="230" width="90" height="250" fill="#262626"/>
+      <rect x="95" y="180" width="70" height="300" fill="#2E2E2E"/>
+      <rect x="170" y="260" width="60" height="220" fill="#242424"/>
+      <rect x="470" y="200" width="80" height="280" fill="#2E2E2E"/>
+      <rect x="555" y="250" width="85" height="230" fill="#242424"/>
+      <rect x="380" y="150" width="60" height="330" fill="#333333"/>
+    </g>
+    <g opacity="0.9">
+      <rect x="10" y="250" width="14" height="18" fill="#4FA184"/>
+      <rect x="40" y="290" width="14" height="18" fill="#4FA184"/>
+      <rect x="110" y="210" width="14" height="18" fill="#4FA184"/>
+      <rect x="500" y="230" width="14" height="18" fill="#4FA184"/>
+      <rect x="580" y="280" width="14" height="18" fill="#4FA184"/>
+    </g>
+    <g opacity="0.55" transform="translate(640,0)">
+      <rect x="0" y="230" width="90" height="250" fill="#262626"/>
+      <rect x="95" y="180" width="70" height="300" fill="#2E2E2E"/>
+      <rect x="170" y="260" width="60" height="220" fill="#242424"/>
+      <rect x="470" y="200" width="80" height="280" fill="#2E2E2E"/>
+      <rect x="555" y="250" width="85" height="230" fill="#242424"/>
+      <rect x="380" y="150" width="60" height="330" fill="#333333"/>
+    </g>
+    <g opacity="0.9" transform="translate(640,0)">
+      <rect x="10" y="250" width="14" height="18" fill="#4FA184"/>
+      <rect x="40" y="290" width="14" height="18" fill="#4FA184"/>
+      <rect x="110" y="210" width="14" height="18" fill="#4FA184"/>
+      <rect x="500" y="230" width="14" height="18" fill="#4FA184"/>
+      <rect x="580" y="280" width="14" height="18" fill="#4FA184"/>
+    </g>
+  </g>
+
+  <line class="ground-line" x1="0" y1="440" x2="640" y2="440" stroke="#0F6B4C" stroke-width="3" opacity="0.8"/>
+
+  <g transform="translate(131.5,243.3) scale(0.1963)">
+   <g class="courier">
+    <g transform="translate(0,1254) scale(0.1,-0.1)">
+      <path d="M6155 10150 c-152 -30 -278 -101 -402 -225 -79 -80 -98 -105 -142 -196 -65 -134 -84 -214 -84 -354 -1 -307 174 -581 447 -705 153 -70 357 -90 519 -54 578 132 805 857 403 1291 -163 176 -344 254 -586 252 -63 -1 -133 -5 -155 -9z" fill="#F5F5F4"/>
+      <path d="M5519 8346 c-21 -7 -49 -22 -63 -33 -24 -19 -157 -189 -419 -533 -64 -85 -163 -213 -218 -285 -56 -71 -125 -161 -155 -200 -29 -38 -103 -133 -164 -210 -61 -77 -146 -185 -188 -239 -70 -91 -109 -141 -229 -297 -56 -72 -61 -98 -30 -135 l25 -29 525 0 c511 0 526 1 547 20 20 17 126 152 345 436 62 80 176 226 255 328 106 135 327 426 354 464 16 23 48 65 71 92 43 52 257 333 313 412 52 74 39 161 -31 203 -30 19 -53 20 -467 20 -331 -1 -444 -4 -471 -14z" fill="#F5F5F4"/>
+      <path d="M6572 7723 c-23 -9 -484 -595 -493 -626 -17 -60 -21 -53 356 -597 62 -90 327 -475 429 -624 69 -100 133 -157 197 -175 33 -9 174 -11 539 -9 l495 3 50 27 c28 14 64 41 82 60 37 38 253 393 253 414 0 28 -31 74 -53 79 -12 2 -184 6 -382 7 l-360 3 -50 25 c-49 24 -60 39 -502 705 -249 374 -462 688 -474 698 -20 16 -60 21 -87 10z" fill="#F5F5F4"/>
+      <path d="M5802 6707 c-12 -6 -59 -60 -105 -118 -45 -59 -190 -243 -322 -410 -133 -167 -299 -378 -370 -469 -71 -91 -152 -194 -180 -230 -257 -324 -427 -540 -460 -583 -43 -55 -322 -406 -435 -547 -37 -47 -198 -247 -356 -445 -158 -198 -334 -415 -390 -481 -136 -161 -154 -188 -154 -235 0 -31 8 -48 38 -81 69 -78 607 -550 647 -569 37 -17 70 -19 417 -19 222 0 387 4 402 10 32 12 51 50 42 84 -5 22 -155 201 -389 465 l-66 74 22 27 c114 142 244 302 353 435 204 249 339 416 649 800 54 67 152 186 290 355 47 58 139 170 203 249 64 79 126 155 137 168 l21 25 81 -114 c84 -117 247 -350 441 -630 63 -90 161 -230 218 -313 98 -141 184 -266 561 -817 84 -123 235 -347 337 -499 101 -152 196 -286 211 -297 27 -22 35 -22 361 -22 195 0 343 4 359 10 14 5 71 45 127 87 55 43 112 87 127 98 14 11 89 69 166 130 77 61 154 122 171 136 168 132 275 222 283 238 25 46 11 95 -33 118 -27 14 -76 15 -446 9 l-415 -6 -130 182 c-71 99 -154 215 -182 257 -29 42 -89 126 -134 186 -44 61 -106 146 -138 190 -32 44 -106 148 -166 230 -60 83 -165 229 -233 325 -156 218 -405 558 -615 840 -89 118 -191 256 -227 305 -117 159 -249 338 -549 741 -91 124 -116 140 -169 111z" fill="#F5F5F4"/>
+      <path d="M7135 8119 c-17 -4 -44 -22 -60 -39 -24 -25 -30 -41 -33 -90 l-4 -60 102 -167 c145 -237 254 -414 320 -518 65 -104 227 -366 333 -540 46 -76 85 -128 106 -142 l34 -23 639 0 638 0 37 33 c39 36 34 19 107 412 8 44 45 235 81 425 123 651 117 607 101 644 -7 18 -26 42 -41 54 l-28 22 -1151 -1 c-633 0 -1165 -5 -1181 -10z" fill="#0F6B4C"/>
+    </g>
+   </g>
+  </g>
+
+  <rect x="0" y="0" width="640" height="480" fill="url(#g)" opacity="0.25"/>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+</svg>

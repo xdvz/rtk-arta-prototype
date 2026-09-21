@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Страхование и гарантии — РТК АРТА</title>
+<meta name="description" content="Как работает опция «Ценное отправление»: страховой сбор, фотофиксация, порядок действий при утере или повреждении.">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к основному содержанию</a>
+
+<header class="site-header" data-block="header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="site-header__logo" aria-label="РТК АРТА — пешие курьеры, на главную">
+      <img src="assets/logo-icon.png" alt="" width="40" height="40">
+      <span class="site-header__wordmark">РТК АРТА</span>
+    </a>
+    <nav class="site-header__nav" aria-label="Основная навигация">
+      <a href="index.html#how-it-works">Как это работает</a>
+      <a href="index.html#trust">Доверие</a>
+      <a href="index.html#pricing">Тарифы</a>
+      <a href="business.html">Для бизнеса</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:+74951234567">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5c0 8.284 6.716 15 15 15l2-4-5-2-2 2c-2.5-1-4.5-3-5.5-5.5l2-2-2-5-4 1z"/></svg>
+        +7 (495) 123-45-67
+      </a>
+      <a class="btn btn--cta site-header__cta" href="index.html#order-form">Рассчитать доставку</a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="mobileNav" aria-label="Открыть меню">
+        <span class="nav-toggle__box"><span class="nav-toggle__line"></span><span class="nav-toggle__line"></span><span class="nav-toggle__line"></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav" data-mobile-nav>
+  <ul class="mobile-nav__list">
+    <li><a href="index.html#how-it-works">Как это работает</a></li>
+    <li><a href="#fee">Страховой сбор</a></li>
+    <li><a href="#claims">Утеря / повреждение</a></li>
+    <li><a href="business.html">Для бизнеса</a></li>
+    <li><a href="index.html#contacts">Контакты</a></li>
+  </ul>
+  <div class="mobile-nav__contact">
+    <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+    <a class="btn btn--cta btn--block" href="index.html#order-form">Рассчитать доставку</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <div class="page-intro">
+    <div class="container">
+      <a href="index.html#trust" class="page-intro__back">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        Назад на главную
+      </a>
+      <h1>Страхование и гарантии</h1>
+      <p class="text-lg text-muted page-intro__lead">Расширенная версия блока об опции «Ценное отправление» — для тех, кто хочет разобраться в деталях перед тем, как оформить доставку дорогой вещи со страховкой.</p>
+    </div>
+  </div>
+
+  <section class="section" id="fee" data-block="insurance-fee">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <h2 class="section__title">Как работает страховой сбор</h2>
+          <p class="text-muted">При включении опции «Ценное отправление» клиент указывает оценочную стоимость вложения при заказе. Сбор рассчитывается в процентах от неё и добавляется к стоимости доставки автоматически — без включённой опции страховой сбор не взимается.</p>
+        </div>
+        <div class="callout">
+          <p class="mb-sm"><strong>Формула (ориентировочно):</strong></p>
+          <p class="no-measure">Страховой сбор = оценочная стоимость вложения × 0,5–1 % <span class="todo-flag">уточнить</span></p>
+          <p class="no-measure text-sm">Верхний лимит объявленной стоимости, который сервис готов страховать, — <span class="todo-flag">уточнить</span>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="claims" data-block="claims-process">
+    <div class="container">
+      <h2 class="section__title">Что будет при утере или повреждении</h2>
+      <p class="text-muted mb-lg">Формулировки ниже намеренно осторожные — точный порядок, сроки и суммы требуют юридического согласования перед публикацией.</p>
+      <ol class="steps steps--3">
+        <li class="step-card">
+          <span class="step-card__number">1</span>
+          <h3 class="step-card__title">Сообщите нам</h3>
+          <p class="text-muted">Свяжитесь по телефону, email или в MAX и укажите номер заказа.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-card__number">2</span>
+          <h3 class="step-card__title">Предоставьте подтверждение</h3>
+          <p class="text-muted">Номер заказа, фото при получении/вручении (если опция была включена), описание ситуации.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-card__number">3</span>
+          <h3 class="step-card__title">Рассмотрение</h3>
+          <p class="text-muted">Срок рассмотрения — <span class="todo-flag">уточнить</span>. Решение и дальнейшие шаги сообщаем напрямую.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" data-block="safety-confirmation">
+    <div class="container">
+      <div class="two-col">
+        <div>
+          <h2 class="section__title">Что подтверждает сохранность</h2>
+          <ul class="audience-card__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Фотофиксация при получении и при передаче</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Правило «Без вскрытия упаковки» — для любого заказа</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Хранение фотографий по заказу в течение <span class="todo-flag">уточнить</span></li>
+          </ul>
+        </div>
+        <div class="trust-block trust-block--accent">
+          <span class="trust-block__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg></span>
+          <h3 class="step-card__title">Правовая основа</h3>
+          <p class="text-muted">Доставка ценностей регулируется законодательством. Итоговые условия ответственности и лимиты по стоимости закреплены в публичной оферте — точные формулировки требуют юридического согласования перед публикацией. <span class="todo-flag">уточнить</span></p>
+        </div>
+      </div>
+      <div class="mt-xl">
+        <a href="oferta.html" class="btn btn--dark">Прочитать условия оферты</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="footer-cta" data-block="footer-cta">
+  <div class="container footer-cta__inner">
+    <div>
+      <h3>Готовы оформить доставку ценного отправления?</h3>
+      <p class="text-muted">Включите опцию «Ценное отправление» прямо в форме заказа.</p>
+    </div>
+    <a href="index.html#order-form" class="btn btn--cta">Рассчитать доставку</a>
+  </div>
+</div>
+
+<footer class="site-footer" data-block="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">
+          <img src="assets/logo-icon-white.png" alt="" width="36" height="36">
+          <span>РТК АРТА</span>
+        </div>
+        <p>«Пешком — быстро, надёжно и куда угодно»</p>
+      </div>
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="index.html#how-it-works">Как это работает</a></li>
+          <li><a href="index.html#trust">Доверие</a></li>
+          <li><a href="index.html#pricing">Тарифы</a></li>
+          <li><a href="business.html">Для бизнеса</a></li>
+          <li><a href="guarantees.html">Страхование и гарантии</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:hello@rtkarta.ru">hello@rtkarta.ru</a></li>
+          <li><span>Мессенджер MAX: @rtkarta</span></li>
+          <li><span>Москва и ближнее Подмосковье</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© <span id="year">2026</span> РТК АРТА. ООО «РТК АРТА», ОГРН/ИНН — <span class="todo-flag">уточнить</span></span>
+      <div class="footer-legal__links">
+        <a href="oferta.html">Публичная оферта</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+</body>
+</html>

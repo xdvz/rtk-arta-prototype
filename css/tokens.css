@@ -1,0 +1,100 @@
+/* Design Tokens - Auto-generated */
+/* Do not edit directly - modify tokens.json instead */
+
+/* === PRIMITIVES === */
+:root {
+  --primitive-color-primary-50: #F2F2F2;
+  --primitive-color-primary-100: #E0E0E0;
+  --primitive-color-primary-200: #B8B8B8;
+  --primitive-color-primary-300: #8C8C8C;
+  --primitive-color-primary-400: #4D4D4D;
+  --primitive-color-primary-500: #1A1A1A;
+  --primitive-color-primary-600: #0D0D0D;
+  --primitive-color-primary-700: #080808;
+  --primitive-color-primary-800: #040404;
+  --primitive-color-primary-900: #000000;
+  --primitive-color-secondary-50: #FFFFFF;
+  --primitive-color-secondary-100: #F5F5F4;
+  --primitive-color-secondary-200: #E3E2DF;
+  --primitive-color-secondary-300: #D2D0CC;
+  --primitive-color-secondary-400: #B5B3AE;
+  --primitive-color-secondary-500: #948F89;
+  --primitive-color-secondary-600: #726E68;
+  --primitive-color-secondary-700: #55514C;
+  --primitive-color-secondary-800: #38352F;
+  --primitive-color-secondary-900: #201E1A;
+  --primitive-color-accent-50: #E9F5F0;
+  --primitive-color-accent-100: #C9E8DC;
+  --primitive-color-accent-200: #9ED3C0;
+  --primitive-color-accent-300: #6FBBA0;
+  --primitive-color-accent-400: #4FA184;
+  --primitive-color-accent-500: #0F6B4C;
+  --primitive-color-accent-600: #0B5239;
+  --primitive-color-accent-700: #08402D;
+  --primitive-color-accent-800: #052E20;
+  --primitive-color-accent-900: #031F16;
+  --primitive-color-status-success: #0F6B4C;
+  --primitive-color-status-warning: #C1621D;
+  --primitive-color-status-error: #B3402F;
+  --primitive-color-status-info: #2B6CB0;
+  --primitive-color-font-heading: 'PT Serif', Georgia, 'Times New Roman', serif;
+  --primitive-color-font-body: 'Golos Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --primitive-color-font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+  --primitive-color-spacing-xs: 4px;
+  --primitive-color-spacing-sm: 8px;
+  --primitive-color-spacing-md: 16px;
+  --primitive-color-spacing-lg: 24px;
+  --primitive-color-spacing-xl: 32px;
+  --primitive-color-spacing-2xl: 48px;
+  --primitive-color-radius-button: 8px;
+  --primitive-color-radius-card: 12px;
+  --primitive-color-radius-input: 8px;
+  --primitive-color-radius-modal: 16px;
+  --primitive-color-radius-pill: 9999px;
+}
+
+/* === SEMANTIC === */
+:root {
+  --color-primary: #1A1A1A;
+  --color-primary-hover: #0D0D0D;
+  --color-primary-active: #080808;
+  --color-primary-light: #4D4D4D;
+  --color-primary-lighter: #E0E0E0;
+  --color-secondary: #948F89;
+  --color-secondary-light: #E3E2DF;
+  --color-accent: #0F6B4C;
+  --color-accent-hover: #0B5239;
+  --color-accent-light: #C9E8DC;
+  --color-background: #F5F5F4;
+  --color-surface: #FFFFFF;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4D4D4D;
+  --color-text-inverse: #FFFFFF;
+  --color-border: #E3E2DF;
+  --color-success: #0F6B4C;
+  --color-warning: #C1621D;
+  --color-error: #B3402F;
+  --color-info: #2B6CB0;
+  --font-heading: 'PT Serif', Georgia, 'Times New Roman', serif;
+  --font-body: 'Golos Text', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* === COMPONENTS === */
+:root {
+  --button-primary-bg: #1A1A1A;
+  --button-primary-bg-hover: #0D0D0D;
+  --button-primary-text: #FFFFFF;
+  --button-primary-radius: 8px;
+  --button-secondary-bg: #0F6B4C;
+  --button-secondary-bg-hover: #0B5239;
+  --button-secondary-border: #0F6B4C;
+  --button-secondary-text: #FFFFFF;
+  --button-secondary-radius: 8px;
+  --button-tertiary-bg: transparent;
+  --button-tertiary-border: #E3E2DF;
+  --button-tertiary-text: #1A1A1A;
+  --button-tertiary-radius: 8px;
+  --card-bg: #FFFFFF;
+  --card-border: #E3E2DF;
+  --card-radius: 12px;
+}

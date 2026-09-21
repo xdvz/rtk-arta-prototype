@@ -1,0 +1,1568 @@
+/* ==========================================================================
+   РТК АРТА — основные стили сайта
+   Подключает /css/tokens.css (design tokens) как единственный источник цвета/шрифтов/радиусов.
+   Каждая секция размечена как самостоятельный компонент (data-block) —
+   готова к переносу в ACF Flexible Content / PHP partial.
+
+   ШКАЛА ОТСТУПОВ (--space-*) — семантический алиас поверх уже существующих
+   примитивов tokens.css (--primitive-color-spacing-*), плюс один новый
+   крупный шаг --space-3xl (см. ниже). Роли шагов (обновлено по фидбеку
+   «сайт ощущается душно» — сетки карточек и секции раздвинуты):
+     --space-xs  (4px)  — микро-корректировки (редко, напр. смещение иконки)
+     --space-sm  (8px)  — инлайн-пары иконка+текст, самые тесные соседства
+     --space-md  (16px) — внутренний ритм ОДНОЙ карточки/поля (заголовок→
+                          текст→список внутри одной карточки, label→input) —
+                          этот уровень фидбеком не затронут, не трогаем
+     --space-lg  (24px) — паддинг карточек, callout/calculator и т.п.
+                          «средние» внутренние отступы компонентов
+     --space-xl  (32px) — расстояние МЕЖДУ повторяющимися карточками в любой
+                          сетке (steps/trust/tariff/audience/case/contact/
+                          badges), отступ МЕЖДУ полями формы, section__header
+                          снизу на мобильном, padding секции по вертикали
+                          на мобильном
+     --space-2xl (48px) — крупные внутренние группы ВНУТРИ одной секции
+                          (напр. hero → бейджи, section__header → контент
+                          секции на десктопе) — на всех брейкпоинтах,
+                          промежуточный «большой» шаг
+     --space-3xl (64px) — самый крупный шаг: padding секции по вертикали
+                          на десктопе (это и есть расстояние МЕЖДУ секциями
+                          целиком). Внутренние группы ОДНОЙ секции (бейджи,
+                          section__header) на десктопе НЕ используют этот
+                          шаг — иначе внутренняя группировка визуально
+                          читается как граница между секциями (см.
+                          --space-2xl выше; было скорректировано с 80px —
+                          при 80px и межсекционный зазор (160px), и отступ
+                          section__header от контента совпадали, из-за чего
+                          заголовок «отрывался» от своей секции так же, как
+                          от соседней)
+   Отступ между двумя соседними секциями = padding-bottom одной + padding-top
+   следующей = 2×--space-2xl (96px) на мобильном и 2×--space-3xl (128px) на
+   десктопе — одинаково для ВСЕХ секций сайта, включая hero.
+
+   LINE-HEIGHT: для основного текста (body, параграфы, списки, FAQ, легальные
+   документы) используется токен --leading-body (1.65) вместо жёстко заданных
+   значений — задан один раз на <body> и наследуется везде, где нет своего
+   line-height. Заголовки (h1–h4) сохраняют собственные более плотные
+   значения (1.2–1.35) — эта правка их не касается.
+   ========================================================================== */
+
+/* ---------- Доп. переменные уровня приложения (не входят в tokens.css) ---------- */
+:root {
+  --container-max: 1200px;
+  --gutter: 16px;
+  --header-height: 76px;
+  --header-height-mobile: 64px;
+  --shadow-sm: 0 1px 2px rgba(26, 26, 26, 0.06), 0 1px 3px rgba(26, 26, 26, 0.08);
+  --shadow-md: 0 4px 12px rgba(26, 26, 26, 0.08), 0 2px 4px rgba(26, 26, 26, 0.06);
+  --shadow-lg: 0 12px 32px rgba(26, 26, 26, 0.12);
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+  --focus-ring: 0 0 0 3px rgba(15, 107, 76, 0.35);
+  --radius-pill: 9999px;
+
+  /* Семантическая шкала отступов — алиасы на примитивы tokens.css */
+  --space-xs: var(--primitive-color-spacing-xs);   /* 4px */
+  --space-sm: var(--primitive-color-spacing-sm);   /* 8px */
+  --space-md: var(--primitive-color-spacing-md);   /* 16px */
+  --space-lg: var(--primitive-color-spacing-lg);   /* 24px */
+  --space-xl: var(--primitive-color-spacing-xl);   /* 32px */
+  --space-2xl: var(--primitive-color-spacing-2xl); /* 48px */
+  --space-3xl: 64px; /* нет примитива в tokens.css — продолжает
+                         прогрессию 24→32(+8)→48(+16)→64(+16) */
+
+  /* Line-height токен для основного текста (не для заголовков) */
+  --leading-body: 1.65;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* Компенсация sticky-хедера: без этого якорные ссылки/scrollIntoView
+     подводят целевой блок под верх страницы, и хедер (position: sticky)
+     перекрывает его верхнюю часть. Высота = --header-height-mobile,
+     переключается на --header-height на том же брейкпоинте (1024px),
+     на котором меняется высота самого .site-header__inner (см. ниже). */
+  scroll-padding-top: calc(var(--header-height-mobile) + var(--space-sm));
+}
+
+@media (min-width: 1024px) {
+  html { scroll-padding-top: calc(var(--header-height) + var(--space-sm)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body, h1, h2, h3, h4, p, figure, blockquote, dl, dd, ul, ol {
+  margin: 0;
+}
+
+ul, ol { list-style: none; padding: 0; margin: 0; }
+
+img, picture, svg { display: block; max-width: 100%; }
+
+input, button, textarea, select { font: inherit; color: inherit; }
+
+button { cursor: pointer; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ---------- База ---------- */
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: var(--leading-body);
+  color: var(--color-text-primary);
+  background: var(--color-background);
+  min-height: 100dvh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--color-text-primary);
+}
+
+h4 {
+  font-family: var(--font-body);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* Типографическая шкала — из brand-guidelines.md (мобильные размеры базовые,
+   десктопные — в media 768px), не меняется этой правкой */
+h1 { font-size: 32px; line-height: 1.2; }
+h2 { font-size: 28px; }
+h3 { font-size: 24px; }
+h4 { font-size: 20px; }
+
+@media (min-width: 768px) {
+  h1 { font-size: 40px; }
+  h2 { font-size: 36px; }
+  h3 { font-size: 28px; }
+  h4 { font-size: 22px; }
+}
+
+.text-lg { font-size: 18px; line-height: 1.65; }
+.text-sm { font-size: 14px; line-height: 1.6; }
+.text-caption { font-size: 12px; line-height: 1.4; font-weight: 500; letter-spacing: 0.01em; }
+.text-muted { color: var(--color-text-secondary); }
+.text-accent { color: var(--color-accent); }
+
+p { max-width: 68ch; }
+p.no-measure { max-width: none; }
+
+/* ---------- Фокус и доступность ---------- */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 2000;
+  background: var(--color-primary);
+  color: #fff;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 8px;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 768px) {
+  .container { padding-inline: var(--space-xl); }
+}
+
+/* Единый вертикальный ритм секций: одинаковый padding-top/bottom у ВСЕХ
+   секций (включая hero) на каждом брейкпоинте — граница между любыми двумя
+   секциями сайта всегда одной и той же ширины. */
+.section,
+.hero {
+  padding-block: var(--space-2xl);
+}
+
+@media (min-width: 768px) {
+  .section,
+  .hero { padding-block: var(--space-3xl); }
+}
+
+.section--alt { background: var(--color-surface); }
+
+/* margin-bottom на десктопе — var(--space-2xl), не --space-3xl: тот же
+   принцип, что и у .badges (см. ниже) — заголовок отделён от СВОЕГО контента,
+   а не от соседней секции, поэтому отступ должен быть заметно меньше, чем
+   padding секции (--space-3xl), иначе граница «заголовок→контент» читается
+   так же, как граница между двумя секциями. */
+.section__header {
+  max-width: 680px;
+  margin-bottom: var(--space-xl);
+}
+@media (min-width: 768px) {
+  .section__header { margin-bottom: var(--space-2xl); }
+}
+
+/* Модификатор для секций, где form-card/контент центрирован — чтобы
+   заголовок секции визуально совпадал по выравниванию (order-form, b2b-form) */
+.section__header--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Более компактный вариант section__header — для секций с лёгким контентом
+   сразу под заголовком (напр. #contacts: три компактные карточки), где
+   стандартный отступ (--space-2xl/48px на десктопе, одинаковый для всех
+   секций) визуально читается как разрыв/пустота, а не переход между
+   секциями. Используется точечно, не меняет общее правило .section__header. */
+.section__header--tight { margin-bottom: var(--space-lg); }
+@media (min-width: 768px) {
+  .section__header--tight { margin-bottom: var(--space-xl); }
+}
+
+.section__eyebrow {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.section__title { margin-bottom: var(--space-md); }
+
+/* ---------- Кнопки (CTAButton) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  min-height: 48px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--button-primary-radius);
+  border: 1px solid transparent;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+.btn:active { transform: translateY(1px); }
+
+.btn--cta {
+  background: var(--button-secondary-bg);
+  color: var(--button-secondary-text);
+  box-shadow: var(--shadow-sm);
+}
+.btn--cta:hover { background: var(--button-secondary-bg-hover); box-shadow: var(--shadow-md); }
+
+.btn--dark {
+  background: var(--button-primary-bg);
+  color: var(--button-primary-text);
+}
+.btn--dark:hover { background: var(--button-primary-bg-hover); }
+
+.btn--outline {
+  background: var(--button-tertiary-bg);
+  border-color: var(--button-tertiary-border);
+  color: var(--button-tertiary-text);
+}
+.btn--outline:hover { border-color: var(--color-primary); background: rgba(26,26,26,0.04); }
+
+.btn--block {
+  width: 100%;
+  /* Полноширинные кнопки могут получать длинный текст (напр. сабмит формы
+     заказа) — здесь позволяем перенос вместо .btn's nowrap по умолчанию,
+     компактные CTA (.btn--cta без --block, напр. в шапке) остаются в одну
+     строку без изменений. */
+  white-space: normal;
+  text-align: center;
+}
+.btn--sm { min-height: 40px; padding: var(--space-sm) var(--space-md); font-size: 14px; }
+
+.btn[disabled],
+.btn.is-loading {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn.is-loading { position: relative; color: transparent; }
+.btn.is-loading::after {
+  content: "";
+  position: absolute;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  color: #fff;
+  animation: btn-spin 700ms linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
+
+/* ---------- Header / Sticky Nav ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  height: var(--header-height-mobile);
+}
+@media (min-width: 1024px) {
+  .site-header__inner { height: var(--header-height); }
+}
+
+.site-header__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-shrink: 0;
+}
+.site-header__logo img {
+  height: 32px;
+  width: 32px;
+}
+.site-header__wordmark {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 18px;
+  letter-spacing: 0.01em;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+@media (min-width: 1024px) {
+  .site-header__logo img { height: 40px; width: 40px; }
+  .site-header__wordmark { font-size: 22px; }
+}
+
+/* Полная навигация показывается только там, где ей гарантированно хватает
+   места (>= ширины контейнера), иначе пункты меню начинают переноситься —
+   до этой ширины работает бургер-меню. */
+.site-header__nav {
+  display: none;
+}
+@media (min-width: 1200px) {
+  .site-header__nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    flex: 1;
+    justify-content: center;
+  }
+  .site-header__nav a {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    padding: var(--space-sm) var(--space-xs);
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
+  }
+  .site-header__nav a:hover,
+  .site-header__nav a:focus-visible {
+    color: var(--color-text-primary);
+    border-bottom-color: var(--color-accent);
+  }
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.site-header__phone {
+  display: none;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+@media (min-width: 900px) {
+  .site-header__phone { display: inline-flex; align-items: center; gap: var(--space-xs); }
+}
+
+.site-header__cta { display: none; }
+@media (min-width: 640px) {
+  .site-header__cta { display: inline-flex; }
+}
+
+/* Burger */
+.nav-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+@media (min-width: 1200px) {
+  .nav-toggle { display: none; }
+}
+.nav-toggle__box {
+  position: relative;
+  width: 20px;
+  height: 14px;
+}
+.nav-toggle__line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--color-text-primary);
+  border-radius: 2px;
+  transition: transform var(--transition-base), opacity var(--transition-base), top var(--transition-base);
+}
+.nav-toggle__line:nth-child(1) { top: 0; }
+.nav-toggle__line:nth-child(2) { top: 6px; }
+.nav-toggle__line:nth-child(3) { top: 12px; }
+
+.nav-toggle[aria-expanded="true"] .nav-toggle__line:nth-child(1) { top: 6px; transform: rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__line:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__line:nth-child(3) { top: 6px; transform: rotate(-45deg); }
+
+/* Мобильное меню */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  top: var(--header-height-mobile);
+  background: var(--color-surface);
+  z-index: 999;
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), transform var(--transition-base), visibility var(--transition-base);
+  overflow-y: auto;
+  padding: var(--space-lg) var(--gutter) var(--space-2xl);
+}
+.mobile-nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+@media (min-width: 1200px) {
+  .mobile-nav { display: none; }
+}
+.mobile-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-lg);
+}
+.mobile-nav__list a {
+  display: block;
+  padding: var(--space-md) var(--space-md);
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  min-height: 44px;
+}
+.mobile-nav__list a:hover,
+.mobile-nav__list a:focus-visible {
+  background: var(--color-background);
+}
+.mobile-nav__contact {
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.mobile-nav__contact a { font-weight: 600; }
+
+body.nav-open { overflow: hidden; }
+
+/* ---------- Hero ---------- */
+.hero {
+  background: linear-gradient(180deg, var(--color-surface) 0%, var(--color-background) 100%);
+}
+
+.hero__grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: center;
+}
+@media (min-width: 1024px) {
+  .hero__grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--space-2xl); }
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-lg);
+}
+
+.hero__title { margin-bottom: var(--space-xl); max-inline-size: 22ch; }
+.hero__lead { margin-bottom: var(--space-2xl); }
+
+.hero__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: 0;
+}
+.hero__actions .btn {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .hero__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+  .hero__actions .btn {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+
+.hero__media {
+  position: relative;
+  border-radius: var(--card-radius);
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  background: var(--color-primary);
+}
+.hero__media img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.hero__media-caption {
+  position: absolute;
+  left: var(--space-md); right: var(--space-md); bottom: var(--space-md);
+  background: rgba(26,26,26,0.72);
+  color: #fff;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: 10px;
+  font-size: 14px;
+  backdrop-filter: blur(2px);
+}
+
+/* Feature badges
+   margin-top контейнера — var(--space-2xl) на ВСЕХ брейкпоинтах (раньше на
+   десктопе стоял var(--space-3xl)/80px — тот же шаг, что и padding-bottom
+   секции, т.е. полноценный отступ МЕЖДУ секциями). Бейджи — внутренняя
+   группа hero, а не отдельная секция, поэтому её отступ от контента hero
+   должен быть заметно меньше, чем граница между секциями — иначе блок
+   визуально "отрывается" и выглядит так, будто у него самого избыточные
+   паддинги. Сам .feature-badge (padding/gap) не трогаем — он уже совпадает
+   с .tariff-card/.audience-card/.contact-card (--space-lg/--space-md). */
+.badges {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+@media (min-width: 640px) {
+  .badges { grid-template-columns: repeat(3, 1fr); }
+}
+
+.feature-badge {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+}
+.feature-badge__icon {
+  flex-shrink: 0;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--color-accent-light);
+  color: var(--color-accent-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.feature-badge__icon svg { width: 22px; height: 22px; }
+/* align-items: flex-start у .feature-badge — иконка прижата к верху блока,
+   а не центрируется относительно всего текста (заголовок+описание): при
+   центровке высота текста менялась от бейджа к бейджу (1–2 строки описания),
+   и иконка "гуляла" по вертикали — с flex-start она всегда у верхнего края.
+   Явный line-height у заголовка нужен, чтобы короткий bold-текст не "плыл"
+   вместе с глобальным --leading-body (1.65) — это компактный UI-лейбл, а не
+   абзац. */
+.feature-badge__title { font-weight: 600; font-size: 15px; line-height: 1.3; margin-bottom: 2px; }
+
+/* ---------- Steps (how it works) ---------- */
+.steps {
+  display: grid;
+  gap: var(--space-xl);
+  counter-reset: step;
+}
+@media (min-width: 768px) {
+  .steps { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .steps--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* .steps--5 — нечётное число карточек (5), поэтому фиксированная grid-сетка
+   с постоянным числом колонок (3 или 2) на большинстве десктопных ширин
+   оставляет неполный последний ряд прижатым к левому краю (напр. 3+2 на
+   1024px+) — читается как случайный перенос, а не осознанный макет.
+   Начиная с планшета переводим .steps--5 на flex-wrap + justify-content:
+   center с фиксированной шириной карточки (flex-basis/max-width, с учётом
+   gap) — неполный последний ряд центрируется под серединой предыдущего и
+   выглядит как намеренная двухрядная (или трёхрядная на планшете) раскладка
+   на любой ширине: 2+2+1 на планшете, 3+2 на 1024px и шире.
+   Раньше с 1440px переводили в один ряд из 5 — но контейнер сайта везде
+   ограничен max-width:1200px (это общее выравнивание всех секций, менять
+   точечно нельзя), и 5 колонок внутри него получались слишком узкими —
+   текст рвался на 5–6 строк. Оставляем 3+2 на всех десктопных ширинах:
+   карточка стабильно ~357px независимо от того, насколько широк экран. */
+@media (min-width: 768px) {
+  .steps--5 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .steps--5 .step-card {
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: calc(50% - var(--space-xl) / 2);
+    max-width: calc(50% - var(--space-xl) / 2);
+  }
+}
+@media (min-width: 1024px) {
+  .steps--5 .step-card {
+    flex-basis: calc((100% - 2 * var(--space-xl)) / 3);
+    max-width: calc((100% - 2 * var(--space-xl)) / 3);
+  }
+}
+
+.step-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.step-card__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 15px;
+}
+.step-card__title { font-size: 17px; }
+.step-card--active {
+  border-color: var(--color-accent);
+  box-shadow: var(--focus-ring);
+}
+.step-card--active .step-card__number { background: var(--color-accent); }
+
+/* ---------- Trust ---------- */
+.trust-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 768px) {
+  .trust-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.trust-block {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.trust-block--accent {
+  border-color: var(--color-accent);
+  background: var(--color-accent-light);
+}
+.trust-block__icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--color-surface);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-accent-hover);
+}
+.trust-block__icon svg { width: 24px; height: 24px; }
+
+.trust-note {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg) var(--space-xl);
+  border-left: 3px solid var(--color-accent);
+  background: var(--color-surface);
+  border-radius: 0 var(--card-radius) var(--card-radius) 0;
+  font-size: 15px;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Pricing ---------- */
+.tariff-grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: stretch;
+}
+@media (min-width: 768px) {
+  .tariff-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.tariff-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+.tariff-card--featured {
+  border: 2px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+.tariff-card__badge {
+  position: absolute;
+  top: -13px; left: var(--space-lg);
+  background: var(--color-accent);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-pill);
+}
+.tariff-card__price {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-family: var(--font-heading);
+  font-size: 32px;
+  font-weight: 700;
+}
+.tariff-card__price span {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.tariff-card__list { display: flex; flex-direction: column; gap: var(--space-sm); margin-top: auto; }
+.tariff-card__list li {
+  display: flex;
+  gap: var(--space-sm);
+  font-size: 15px;
+  align-items: flex-start;
+}
+.tariff-card__list svg {
+  flex-shrink: 0;
+  width: 18px; height: 18px;
+  margin-top: 2px;
+  color: var(--color-accent-hover);
+}
+
+.pricing-note {
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.pricing-cta-banner {
+  margin-top: var(--space-xl);
+  padding: var(--space-lg);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--card-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+.pricing-cta-banner .btn {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .pricing-cta-banner {
+    flex-direction: row;
+    align-items: center;
+  }
+  .pricing-cta-banner .btn {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+.pricing-cta-banner p { color: rgba(255,255,255,0.75); margin-top: var(--space-xs); }
+/* h1–h3 всегда получают --color-text-primary (см. глобальное правило выше) —
+   специфичность type-селектора бьёт унаследованный от родителя color:#fff,
+   поэтому для заголовка на тёмном фоне баннера нужно явное правило. */
+.pricing-cta-banner h3 { color: #fff; }
+
+/* Calculator */
+.calculator {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-xl);
+  margin-top: var(--space-2xl);
+}
+.calculator__grid {
+  display: grid;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+@media (min-width: 768px) {
+  /* Раньше здесь было 3 колонки (расстояние/срочность/стоимость вложения) —
+     поле стоимости переехало ниже чекбокса опции (см. index.html), в гриде
+     остались только расстояние и срочность. */
+  .calculator__grid { grid-template-columns: repeat(2, 1fr); align-items: end; }
+}
+.calculator__result {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  background: var(--color-background);
+  border-radius: 10px;
+  padding: var(--space-md) var(--space-lg);
+}
+.calculator__result .btn {
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .calculator__result {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .calculator__result .btn {
+    width: auto;
+  }
+}
+.calculator__result-value {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-accent-hover);
+}
+.calculator__insurance-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+/* ---------- For whom ---------- */
+.audience-grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: stretch;
+}
+@media (min-width: 900px) {
+  .audience-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.audience-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+.audience-card__list { display: flex; flex-direction: column; gap: var(--space-sm); margin: 4px 0 var(--space-sm); }
+.audience-card__list li {
+  display: flex; gap: var(--space-sm); align-items: flex-start; font-size: 15px;
+}
+.audience-card__list svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: 3px; color: var(--color-accent-hover); }
+/* Кнопка карточки всегда прижата к низу — так обе карточки (частные лица /
+   бизнес) выравниваются по кнопке, даже если текста в них разное количество */
+.audience-card > .btn { margin-top: auto; }
+
+/* ---------- Case cards (business) ---------- */
+.case-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 640px) {
+  .case-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1100px) {
+  .case-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.case-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+}
+.case-card__icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--color-background);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--color-primary);
+}
+.case-card__icon svg { width: 24px; height: 24px; }
+.case-card--accent .case-card__icon { background: var(--color-accent-light); color: var(--color-accent-hover); }
+
+/* ---------- FAQ (native details/summary — не требует JS) ---------- */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  max-width: 820px;
+}
+.faq-item {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.faq-item__summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  font-weight: 600;
+  font-size: 16px;
+  min-height: 44px;
+}
+.faq-item__summary::-webkit-details-marker { display: none; }
+.faq-item__summary:focus-visible { outline-offset: -3px; }
+.faq-item__icon {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  background: var(--color-background);
+  transition: transform var(--transition-base);
+}
+.faq-item[open] .faq-item__icon { transform: rotate(45deg); background: var(--color-accent-light); }
+.faq-item__body {
+  padding: 0 var(--space-lg) var(--space-lg);
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Contacts ---------- */
+.contact-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 768px) {
+  .contact-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.contact-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.contact-card:hover { border-color: var(--color-accent); box-shadow: var(--shadow-sm); }
+.contact-card[aria-disabled="true"] {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.contact-card__icon {
+  width: 44px; height: 44px;
+  border-radius: 10px;
+  background: var(--color-accent-light);
+  color: var(--color-accent-hover);
+  display: flex; align-items: center; justify-content: center;
+}
+.contact-card__icon svg { width: 22px; height: 22px; }
+.contact-card__value { font-size: 17px; font-weight: 600; }
+
+.service-map {
+  margin-top: var(--space-xl);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+.service-map__frame {
+  aspect-ratio: 16/7;
+  background:
+    linear-gradient(135deg, var(--color-accent-light) 0%, var(--color-background) 60%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 14px;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+/* ---------- Forms ---------- */
+.form-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+}
+@media (min-width: 768px) {
+  .form-card { padding: var(--space-xl); }
+}
+
+.form-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 640px) {
+  .form-grid--2 { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* gap --space-md (16px), не --space-sm — по шкале отступов в шапке файла
+   это и есть задокументированный уровень для пары label→input; на --space-sm
+   (8px) лейблы визуально "наезжали" на поля и казались непропорционально
+   крупными за счёт нехватки воздуха под ними. */
+.form-field { display: flex; flex-direction: column; gap: var(--space-md); }
+.form-field label,
+.form-field legend {
+  font-size: 16px;
+  font-weight: 600;
+}
+/* <legend> внутри .form-field с display:flex — браузеры не включают legend
+   в раскладку flex-контейнера (спецификация рендерит его как caption-подобный
+   элемент вне потока flex-алгоритма), поэтому gap контейнера (--space-md,
+   как между label→input везде) на пару legend→.segmented не действует —
+   между ними был 0px. Задаём тот же интервал явным margin-bottom. */
+.form-field legend { margin-bottom: var(--space-md); }
+.form-field .required-mark { color: var(--color-error); margin-left: 2px; }
+
+.form-field input[type="text"],
+.form-field input[type="tel"],
+.form-field input[type="email"],
+.form-field input[type="number"],
+.form-field input[type="datetime-local"],
+.form-field select,
+.form-field textarea {
+  min-height: 48px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--card-border, 8px);
+  border: 1px solid var(--color-border);
+  background: var(--color-background);
+  font-size: 16px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+.form-field textarea { min-height: 96px; resize: vertical; }
+/* select рендерится нативно крупнее инпутов в большинстве браузеров —
+   чуть уменьшаем, чтобы не перебивал по размеру лейбл (16px) и текст полей.
+   Нативную стрелку убираем и рисуем свою — иначе в некоторых браузерах
+   при кастомных padding/border стрелка визуально "уезжает" от поля. */
+.form-field select {
+  font-size: 15px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 44px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234D4D4D' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md) center;
+  background-size: 18px;
+}
+.form-field select:required:invalid { color: var(--color-text-secondary); }
+.form-field input::placeholder,
+.form-field textarea::placeholder { font-size: 15px; color: var(--color-text-secondary); }
+.form-field input:hover,
+.form-field select:hover,
+.form-field textarea:hover { border-color: var(--color-primary-light); }
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  background: var(--color-surface);
+  box-shadow: var(--focus-ring);
+}
+.form-field .helper-text {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+.form-field.has-error input,
+.form-field.has-error select,
+.form-field.has-error textarea {
+  border-color: var(--color-error);
+}
+.form-field__error {
+  display: none;
+  font-size: 13px;
+  color: var(--color-error);
+  font-weight: 600;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.form-field.has-error .form-field__error { display: flex; }
+
+fieldset { border: none; padding: 0; margin: 0; }
+
+.segmented {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+.segmented {
+  background: var(--color-background);
+  border-radius: var(--radius-pill);
+  padding: var(--space-xs);
+  display: inline-flex;
+  width: 100%;
+}
+.segmented input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.segmented label {
+  flex: 1;
+  text-align: center;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+}
+.segmented input:checked + label {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  color: var(--color-accent-hover);
+}
+.segmented input:focus-visible + label { outline: 3px solid var(--color-accent); outline-offset: 2px; }
+
+.check-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background: var(--color-background);
+}
+.check-row input[type="checkbox"] {
+  width: 22px; height: 22px;
+  min-width: 22px;
+  accent-color: var(--color-accent-hover);
+  margin-top: 2px;
+}
+.check-row__text { display: flex; flex-direction: column; gap: 2px; }
+.check-row__title { font-weight: 600; font-size: 15px; }
+
+/* margin-bottom задан на самой обёртке (не на содержимом внутри неё) и не
+   зависит от is-visible — раньше зазор ПОСЛЕ блока держался на margin-bottom
+   внутреннего .form-field (form-field-group--tight), а он физически виден
+   только когда max-height достаточно большой (is-visible); в свёрнутом
+   состоянии (max-height:0, overflow:hidden) это внутреннее пространство
+   схлопывалось, и после чекбокса оставался только его собственный
+   margin-bottom (--space-xs/4px) — отсюда "лейбл приклеен". Margin-bottom
+   самого .conditional-field — это внешний отступ элемента, overflow:hidden
+   на нём самом его не обрезает, поэтому зазор до следующего поля теперь
+   одинаковый что при открытом, что при закрытом состоянии. */
+.conditional-field {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height var(--transition-base), opacity var(--transition-base), margin var(--transition-base);
+  margin-top: 0;
+  margin-bottom: var(--space-xl);
+}
+.conditional-field.is-visible {
+  max-height: 400px;
+  opacity: 1;
+  margin-top: var(--space-lg);
+}
+
+.order-summary {
+  background: var(--color-background);
+  border-radius: 10px;
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin: var(--space-lg) 0;
+}
+.order-summary__row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+}
+.order-summary__row--total {
+  font-weight: 700;
+  font-size: 18px;
+  border-top: 1px dashed var(--color-border);
+  padding-top: var(--space-sm);
+  margin-top: var(--space-xs);
+}
+
+.form-error-summary {
+  display: none;
+  border: 1px solid var(--color-error);
+  background: #FCEEEC;
+  color: var(--color-error);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: 10px;
+  margin-bottom: var(--space-lg);
+}
+.form-error-summary.is-visible { display: block; }
+.form-error-summary h3 { font-size: 16px; margin-bottom: var(--space-sm); color: var(--color-error); }
+.form-error-summary ul { display: flex; flex-direction: column; gap: var(--space-xs); }
+.form-error-summary a { text-decoration: underline; font-weight: 600; }
+
+.form-success {
+  display: none;
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+}
+.form-success.is-visible { display: block; }
+.form-success__icon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: var(--color-accent-light);
+  color: var(--color-accent-hover);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto var(--space-md);
+}
+.form-success__icon svg { width: 32px; height: 32px; }
+
+/* === Calculator & Order Form (agent pass) ==================================
+   Раньше внутренние отступы калькулятора (#pricing .calculator) и формы
+   заказа (#order-form) были прописаны инлайн в HTML (style="margin...",
+   style="max-width..." и т.п.), поэтому общие правки ритма через styles.css
+   их не затрагивали — инлайн-стиль всегда побеждает по специфичности.
+   Ниже — те же значения (те же токены --space-*, см. шкалу отступов в шапке
+   файла), но в виде классов, чтобы дальнейшие правки могли применяться и к
+   этим двум блокам. Роли токенов здесь: --space-xl — стандартный шаг МЕЖДУ
+   независимыми полями/группами формы (как и везде на сайте); --space-lg —
+   тесно связанные пары внутри одной смысловой группы (два соседних чекбокса,
+   нижний внутренний отступ раскрытого блока «Ценное отправление»);
+   --space-xs — чекбокс, который раскрывает условное поле сразу под собой
+   (причинно-следственная пара, минимальный зазор до появления поля). */
+
+/* Калькулятор — типографическая иерархия «заголовок > поля».
+   Сами по себе размеры и так различались (заголовок — h3, 24/28px;
+   текст полей — 16/15px), но лейблы полей (.form-field label — 16px,
+   600 весом) визуально конкурировали с заголовком: оба тёмные и жирные,
+   разница только в размере и гарнитуре, из-за чего строка из 3 жирных
+   лейблов подряд читалась почти так же "громко", как заголовок над ней.
+   На карточках тарифов (.tariff-card) похожая пара «жирный заголовок +
+   обычный текст списка» не конкурирует именно потому, что вторичный текст
+   там не жирный. Правим по той же логике: заголовок делаем чуть заметнее
+   (немного крупнее — не агрессивно), а лейблы конкретно в калькуляторе
+   (не трогая общий .form-field label, которым пользуется и #order-form)
+   делаем светлее и менее жирными — как компактные подписи к быстрому
+   виджету, а не как лейблы основной формы. */
+.calculator__title {
+  margin-bottom: var(--space-lg);
+  font-size: 26px;
+}
+@media (min-width: 768px) {
+  .calculator__title { font-size: 32px; }
+}
+.calculator .form-field label {
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+.calculator__insurance-row input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  accent-color: var(--color-accent-hover);
+}
+
+/* Форма заказа — заголовок секции и карточка формы шире стандартного
+   .section__header (680px), т.к. под однострочным текстом узкой формы
+   стандартная ширина оставляла лишний воздух по бокам */
+.section__header--form { max-width: 760px; }
+.section__header--form p { margin-inline: auto; }
+.form-card--centered { max-width: 760px; margin: 0 auto; }
+
+/* Единый шаг между независимыми группами полей формы */
+.form-field-group { margin-bottom: var(--space-xl); }
+.form-field-group--tight { margin-bottom: var(--space-lg); }
+.form-field-group--linked { margin-bottom: var(--space-xs); }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--color-primary);
+  color: rgba(255,255,255,0.82);
+  padding-block: var(--space-2xl) var(--space-lg);
+}
+.site-footer a:hover { color: #fff; }
+
+.footer-cta {
+  background: var(--color-surface);
+  padding-block: var(--space-xl);
+}
+.footer-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-lg);
+}
+.footer-cta__inner .btn {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .footer-cta__inner {
+    flex-direction: row;
+    align-items: center;
+  }
+  .footer-cta__inner .btn {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+
+.footer-grid {
+  display: grid;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
+}
+@media (min-width: 768px) {
+  .footer-grid { grid-template-columns: 1.2fr 1fr 1fr; }
+}
+
+.footer-brand__logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+}
+.footer-brand__logo img { height: 36px; width: 36px; }
+.footer-brand__logo span {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 20px;
+  color: #fff;
+}
+.footer-brand p { color: rgba(255,255,255,0.65); }
+
+.footer-col h4 { color: #fff; margin-bottom: var(--space-md); font-size: 15px; }
+.footer-col ul { display: flex; flex-direction: column; gap: var(--space-sm); }
+.footer-col a { color: rgba(255,255,255,0.75); font-size: 15px; }
+
+.footer-legal {
+  border-top: 1px solid rgba(255,255,255,0.14);
+  padding-top: var(--space-lg);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-lg);
+  justify-content: space-between;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+}
+.footer-legal__links { display: flex; gap: var(--space-lg); flex-wrap: wrap; }
+
+/* ---------- Legal pages (oferta/privacy) ---------- */
+.legal-doc {
+  max-width: 760px;
+}
+.legal-doc h2 { margin-top: var(--space-xl); margin-bottom: var(--space-sm); font-size: 22px; }
+.legal-doc h2:first-child { margin-top: 0; }
+.legal-doc p, .legal-doc li { color: var(--color-text-secondary); margin-bottom: var(--space-sm); }
+.legal-doc ol, .legal-doc ul { padding-left: var(--space-lg); list-style: decimal; margin-bottom: var(--space-sm); }
+.legal-doc ul { list-style: disc; }
+
+.todo-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFF4E5;
+  color: #92400E;
+  border: 1px solid #F3D8A8;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+  margin: 0 4px;
+  white-space: nowrap;
+}
+
+.callout {
+  background: var(--color-accent-light);
+  border-left: 3px solid var(--color-accent);
+  padding: var(--space-lg) var(--space-xl);
+  border-radius: 0 12px 12px 0;
+  margin-bottom: var(--space-xl);
+}
+
+/* ---------- Breadcrumb-ish page intro ---------- */
+.page-intro {
+  padding-block: var(--space-xl) var(--space-xs);
+}
+@media (min-width: 768px) { .page-intro { padding-block: var(--space-2xl) var(--space-xs); } }
+.page-intro__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+.page-intro__back svg { width: 16px; height: 16px; }
+/* Вводный абзац под h1 на внутренних страницах (guarantees/oferta/privacy) —
+   было инлайновым style="max-width:640px" на каждой из трёх страниц,
+   вынесено в класс по той же логике, что и калькулятор/форма заказа ниже. */
+.page-intro__lead { max-width: 640px; }
+
+/* ---------- Subscription / B2B pricing ---------- */
+.subscription-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--card-radius);
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+/* Вариант для выделенной карточки (напр. "Абонемент" на business.html) —
+   было инлайновым style="border-color:...; border-width:2px;" */
+.subscription-card--featured {
+  border-color: var(--color-accent);
+  border-width: 2px;
+}
+/* .tariff-card__badge переиспользуется вне .tariff-card (позиционирование
+   которого рассчитано на position:relative родителя-карточки тарифа) —
+   здесь бейдж встраивается в обычный поток flex-колонки, было инлайновым
+   style="position:static; align-self:flex-start;" */
+.tariff-card__badge--inline {
+  position: static;
+  align-self: flex-start;
+}
+
+.two-col {
+  display: grid;
+  gap: var(--space-xl);
+}
+@media (min-width: 900px) {
+  .two-col { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* Utility spacing */
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mt-xl { margin-top: var(--space-xl); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-lg { margin-bottom: var(--space-lg); }
+.mb-xl { margin-bottom: var(--space-xl); }
+.text-center { text-align: center; }
+.link-underline { text-decoration: underline; }
+
+/* Ряд из одной/нескольких кнопок под текстом секции — заменяет точечные
+   инлайн-стили (display:flex/gap/margin-top), которые раньше дублировали
+   один и тот же паттерн на разных страницах. Тот же --space-md между
+   кнопками и --space-xl отступ сверху, что и в остальных местах сайта. */
+.btn-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+.btn-row .btn {
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .btn-row {
+    flex-direction: row;
+    align-items: center;
+  }
+  .btn-row .btn {
+    width: auto;
+    white-space: nowrap;
+  }
+}
+
+/* Узкая версия .section__header/.form-card — для компактной формы
+   (заявка для бизнеса на business.html), где стандартная ширина
+   (680px у заголовка, --space-xl паддинг у карточки формы) оставляла
+   лишний воздух по бокам коротких однострочных полей. Та же логика,
+   что и у .section__header--form/.form-card--centered у формы заказа
+   на главной, просто другое целевое значение ширины. */
+.section__header--narrow { max-width: 640px; }
+.section__header--center p { margin-inline: auto; }
+.form-card--narrow { max-width: 640px; margin-inline: auto; }

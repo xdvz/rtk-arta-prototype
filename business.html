@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Пешая курьерка для бизнеса — РТК АРТА</title>
+<meta name="description" content="Доставка документов, товаров и регулярные маршруты для бизнеса в Москве и ближнем Подмосковье. Абонемент, оплата по счёту, отчётность по каждой доставке.">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;700&family=Golos+Text:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Перейти к основному содержанию</a>
+
+<header class="site-header" data-block="header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="site-header__logo" aria-label="РТК АРТА — пешие курьеры, на главную">
+      <img src="assets/logo-icon.png" alt="" width="40" height="40">
+      <span class="site-header__wordmark">РТК АРТА</span>
+    </a>
+    <nav class="site-header__nav" aria-label="Основная навигация">
+      <a href="index.html#how-it-works">Как это работает</a>
+      <a href="index.html#trust">Доверие</a>
+      <a href="index.html#pricing">Тарифы</a>
+      <a href="business.html" aria-current="page">Для бизнеса</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="index.html#contacts">Контакты</a>
+    </nav>
+    <div class="site-header__actions">
+      <a class="site-header__phone" href="tel:+74951234567">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5c0 8.284 6.716 15 15 15l2-4-5-2-2 2c-2.5-1-4.5-3-5.5-5.5l2-2-2-5-4 1z"/></svg>
+        +7 (495) 123-45-67
+      </a>
+      <a class="btn btn--cta site-header__cta" href="#b2b-form">Оставить заявку</a>
+      <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="mobileNav" aria-label="Открыть меню">
+        <span class="nav-toggle__box"><span class="nav-toggle__line"></span><span class="nav-toggle__line"></span><span class="nav-toggle__line"></span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav" id="mobileNav" data-mobile-nav>
+  <ul class="mobile-nav__list">
+    <li><a href="index.html#how-it-works">Как это работает</a></li>
+    <li><a href="index.html#trust">Доверие</a></li>
+    <li><a href="index.html#pricing">Тарифы</a></li>
+    <li><a href="#cases">Сценарии для бизнеса</a></li>
+    <li><a href="#b2b-pricing">Абонемент</a></li>
+    <li><a href="#b2b-form">Оставить заявку</a></li>
+    <li><a href="index.html#contacts">Контакты</a></li>
+  </ul>
+  <div class="mobile-nav__contact">
+    <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+    <a class="btn btn--cta btn--block" href="#b2b-form">Оставить заявку</a>
+  </div>
+</div>
+
+<main id="main">
+
+  <!-- ===================== HERO (B2B) ===================== -->
+  <section class="hero" data-block="hero-b2b">
+    <div class="container hero__grid">
+      <div>
+        <span class="hero__eyebrow">Для бизнеса · Москва и ближнее Подмосковье</span>
+        <h1 class="hero__title">Пешая курьерка для бизнеса — документы, товары, регулярные доставки</h1>
+        <p class="hero__lead text-lg text-muted">Берём на себя доставку любых отправлений компании — от документов между офисами до товаров клиентам — с прозрачным тарифом и удобным форматом для регулярных заказов.</p>
+        <div class="hero__actions">
+          <a href="#b2b-form" class="btn btn--cta">Оставить заявку на подключение</a>
+          <a href="#cases" class="btn btn--outline">Сценарии использования</a>
+        </div>
+        <p class="text-sm text-muted">Для ценных отправлений доступна опция «Ценное отправление» — так же, как в обычном заказе на главной.</p>
+      </div>
+      <div class="hero__media">
+        <img src="assets/hero-city.svg" alt="Пеший курьер РТК АРТА доставляет отправление компании по Москве" loading="eager">
+        <p class="hero__media-caption">Один подрядчик на все пешие доставки компании</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== СЦЕНАРИИ ИСПОЛЬЗОВАНИЯ ===================== -->
+  <section class="section section--alt" id="cases" data-block="cases">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Сценарии</span>
+        <h2 class="section__title">Формат задачи может быть разным — процесс и качество доставки одинаковые</h2>
+        <p class="text-muted">Карточки сгруппированы по типу сценария, а не по отрасли — список иллюстративный.</p>
+      </div>
+
+      <div class="case-grid">
+        <article class="case-card">
+          <span class="case-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+          </span>
+          <h3 class="step-card__title">Документооборот между офисами</h3>
+          <p class="text-muted">Регулярная передача документов, договоров, печатей между подразделениями.</p>
+        </article>
+        <article class="case-card">
+          <span class="case-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1 13H5L6 7z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          </span>
+          <h3 class="step-card__title">Доставка товара клиенту</h3>
+          <p class="text-muted">Товары клиентам интернет-магазина или розничной точки — быстро и без своей курьерской службы.</p>
+        </article>
+        <article class="case-card">
+          <span class="case-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          </span>
+          <h3 class="step-card__title">Разовые и срочные поручения</h3>
+          <p class="text-muted">Курьер на аутсорсе — подключается по мере необходимости, без штатной единицы.</p>
+        </article>
+        <article class="case-card">
+          <span class="case-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17l4-4 4 4 8-8"/><path d="M16 9h4v4"/></svg>
+          </span>
+          <h3 class="step-card__title">Плановые регулярные маршруты</h3>
+          <p class="text-muted">Фиксированное расписание доставок по одним и тем же адресам.</p>
+        </article>
+        <article class="case-card case-card--accent">
+          <span class="case-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z"/><path d="M9.5 12l2 2 3.5-3.5"/></svg>
+          </span>
+          <h3 class="step-card__title">Ценное или хрупкое отправление</h3>
+          <p class="text-muted">Один из сценариев, а не отдельная специализация — доступна опция «Ценное отправление».</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ГАРАНТИИ ДЛЯ БИЗНЕСА ===================== -->
+  <section class="section" data-block="business-guarantees">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Ответственность</span>
+        <h2 class="section__title">Компания отвечает перед своим клиентом — мы даём инструменты, чтобы это не превращалось в риск</h2>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-block">
+          <span class="trust-block__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+          <h3 class="step-card__title">Подтверждение по каждому заказу</h3>
+          <p class="text-muted">Фиксация вручения для отчётности и бухгалтерии.</p>
+        </div>
+        <div class="trust-block">
+          <span class="trust-block__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg></span>
+          <h3 class="step-card__title">История доставок</h3>
+          <p class="text-muted">Отчёт по заказам для контроля объёмов и сверки.</p>
+        </div>
+        <div class="trust-block">
+          <span class="trust-block__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M3 12h3M18 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span>
+          <h3 class="step-card__title">Особые инструкции</h3>
+          <p class="text-muted">Код домофона, окно доставки, кому можно передавать — указываете в заявке.</p>
+        </div>
+      </div>
+      <p class="trust-note">Правило «Без вскрытия упаковки» и опция «Ценное отправление» доступны для отправлений компании так же, как в обычном заказе для частных лиц.</p>
+    </div>
+  </section>
+
+  <!-- ===================== ТАРИФЫ И АБОНЕМЕНТ ===================== -->
+  <section class="section section--alt" id="b2b-pricing" data-block="b2b-pricing">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Тарифы</span>
+        <h2 class="section__title">При регулярных заказах цена становится ниже и предсказуемее</h2>
+      </div>
+      <div class="two-col">
+        <div class="subscription-card">
+          <h3>Базовый тариф</h3>
+          <p class="tariff-card__price">от 140 ₽<span> / за доставку</span></p>
+          <p class="text-muted">Тот же тариф, что и на главной странице — оплата за каждую доставку по факту.</p>
+        </div>
+        <div class="subscription-card subscription-card--featured">
+          <span class="tariff-card__badge tariff-card__badge--inline">Для регулярных заказов</span>
+          <h3>Абонемент / пакет на N доставок в месяц</h3>
+          <p class="text-muted">Фиксированная цена за доставку при объёме от N заказов в месяц — снижается с ростом объёма. Точная сетка — по запросу.</p>
+          <ul class="tariff-card__list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Оплата по счёту для юрлиц</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Отсрочка платежа — по согласованию <span class="todo-flag">уточнить</span></li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12l5 5L20 6"/></svg>Страховой сбор — сверх абонемента, только при включённой опции</li>
+          </ul>
+          <a href="#b2b-form" class="btn btn--cta">Обсудить условия</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== КАК ПОДКЛЮЧИТЬСЯ ===================== -->
+  <section class="section" data-block="how-to-connect">
+    <div class="container">
+      <div class="section__header">
+        <span class="section__eyebrow">Подключение</span>
+        <h2 class="section__title">Старт занимает один звонок</h2>
+      </div>
+      <ol class="steps steps--3">
+        <li class="step-card">
+          <span class="step-card__number">1</span>
+          <h3 class="step-card__title">Заявка</h3>
+          <p class="text-muted">Оставляете контакты и примерный объём заказов в форме ниже.</p>
+        </li>
+        <li class="step-card">
+          <span class="step-card__number">2</span>
+          <h3 class="step-card__title">Согласование</h3>
+          <p class="text-muted">Обсуждаем объём, тариф и формат оплаты — по звонку или в переписке.</p>
+        </li>
+        <li class="step-card step-card--active">
+          <span class="step-card__number">3</span>
+          <h3 class="step-card__title">Первая доставка</h3>
+          <p class="text-muted">Запускаем работу — часто в тот же день.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===================== ФОРМА ЗАЯВКИ B2B ===================== -->
+  <section class="section section--alt" id="b2b-form" data-block="b2b-form">
+    <div class="container">
+      <div class="section__header section__header--center section__header--narrow">
+        <span class="section__eyebrow">Заявка</span>
+        <h2 class="section__title">Обсудить условия для бизнеса</h2>
+        <p class="text-muted">Оставьте контакты — предложим тариф под ваш объём.</p>
+      </div>
+
+      <div class="form-card form-card--narrow">
+        <form novalidate data-validate-form>
+          <div class="form-error-summary" data-error-summary role="alert">
+            <h3>Пожалуйста, исправьте поля ниже:</h3>
+            <ul></ul>
+          </div>
+
+          <div data-form-fields>
+            <div class="form-field mb-xl">
+              <label for="companyName">Название компании<span class="required-mark">*</span></label>
+              <input type="text" id="companyName" name="companyName" required>
+              <span class="form-field__error" role="alert"></span>
+            </div>
+            <div class="form-field mb-xl">
+              <label for="companyField">Сфера деятельности</label>
+              <input type="text" id="companyField" name="companyField" placeholder="Например: розничный магазин, юридическая фирма, интернет-магазин">
+            </div>
+            <div class="form-field mb-xl">
+              <label for="volume">Примерный объём заказов в месяц</label>
+              <select id="volume" name="volume">
+                <option value="">Выберите вариант</option>
+                <option value="1-10">1–10 доставок</option>
+                <option value="10-50">10–50 доставок</option>
+                <option value="50-200">50–200 доставок</option>
+                <option value="200+">Более 200 доставок</option>
+              </select>
+            </div>
+            <div class="form-grid form-grid--2 mb-xl">
+              <div class="form-field">
+                <label for="contactPerson">Контактное лицо<span class="required-mark">*</span></label>
+                <input type="text" id="contactPerson" name="contactPerson" required>
+                <span class="form-field__error" role="alert"></span>
+              </div>
+              <div class="form-field">
+                <label for="b2bPhone">Телефон<span class="required-mark">*</span></label>
+                <input type="tel" id="b2bPhone" name="b2bPhone" required autocomplete="tel">
+                <span class="form-field__error" role="alert"></span>
+              </div>
+            </div>
+            <div class="form-field mb-xl">
+              <label for="b2bEmail">Email</label>
+              <input type="email" id="b2bEmail" name="b2bEmail" autocomplete="email">
+              <span class="form-field__error" role="alert"></span>
+            </div>
+            <div class="form-field mb-xl">
+              <label for="b2bChannel">Предпочтительный канал связи</label>
+              <select id="b2bChannel" name="b2bChannel">
+                <option value="call">Звонок</option>
+                <option value="max">Мессенджер MAX</option>
+                <option value="email">Email</option>
+              </select>
+            </div>
+            <div class="form-field mb-xl">
+              <div class="check-row">
+                <input type="checkbox" id="b2bConsent" required>
+                <div class="check-row__text">
+                  <span class="check-row__title">Согласен(на) с обработкой персональных данных<span class="required-mark">*</span></span>
+                  <span class="text-sm text-muted">См. <a href="privacy.html" class="link-underline">политику конфиденциальности</a></span>
+                </div>
+              </div>
+              <span class="form-field__error" role="alert"></span>
+            </div>
+          </div>
+
+          <div data-form-actions>
+            <button type="submit" class="btn btn--cta btn--block">Обсудить условия</button>
+          </div>
+
+          <div class="form-success" data-form-success tabindex="-1">
+            <span class="form-success__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l5 5L20 6"/></svg></span>
+            <h3>Заявка принята!</h3>
+            <p class="text-muted">Свяжемся в течение рабочего дня. Номер вашей заявки: <strong data-order-number>RTK-247193</strong></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="footer-cta" data-block="footer-cta">
+  <div class="container footer-cta__inner">
+    <div>
+      <h3>Нужен постоянный подрядчик на пешие доставки?</h3>
+      <p class="text-muted">Обсудим объём и тариф за один звонок.</p>
+    </div>
+    <a href="#b2b-form" class="btn btn--cta">Оставить заявку</a>
+  </div>
+</div>
+
+<footer class="site-footer" data-block="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand__logo">
+          <img src="assets/logo-icon-white.png" alt="" width="36" height="36">
+          <span>РТК АРТА</span>
+        </div>
+        <p>«Пешком — быстро, надёжно и куда угодно»</p>
+      </div>
+      <div class="footer-col">
+        <h4>Разделы</h4>
+        <ul>
+          <li><a href="index.html#how-it-works">Как это работает</a></li>
+          <li><a href="index.html#trust">Доверие</a></li>
+          <li><a href="index.html#pricing">Тарифы</a></li>
+          <li><a href="business.html">Для бизнеса</a></li>
+          <li><a href="guarantees.html">Страхование и гарантии</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+74951234567">+7 (495) 123-45-67</a></li>
+          <li><a href="mailto:hello@rtkarta.ru">hello@rtkarta.ru</a></li>
+          <li><span>Мессенджер MAX: @rtkarta</span></li>
+          <li><span>Москва и ближнее Подмосковье</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <span>© <span id="year">2026</span> РТК АРТА. ООО «РТК АРТА», ОГРН/ИНН — <span class="todo-flag">уточнить</span></span>
+      <div class="footer-legal__links">
+        <a href="oferta.html">Публичная оферта</a>
+        <a href="privacy.html">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script src="js/main.js"></script>
+</body>
+</html>
